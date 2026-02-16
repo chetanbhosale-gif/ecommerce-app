@@ -1,17 +1,24 @@
 package com.ecommerce.sb_ecom.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@Entity
+@Entity //@Entity(name="Categories") Sets name of table to categories.
 public class Category {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long categoryID;
     private String categoryName;
 
     public Category(long categoryID, String categoryName) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
+    }
+    public Category(){
+
     }
 
     public long getCategoryID() {
