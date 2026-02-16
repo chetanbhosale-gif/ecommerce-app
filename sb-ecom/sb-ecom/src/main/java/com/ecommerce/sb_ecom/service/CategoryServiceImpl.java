@@ -34,9 +34,10 @@ public class CategoryServiceImpl implements  CategoryService{
 
     @Override
     public String deleteCategory(Long categoryId) {
-        List<Category> categories= categoryRepository.findAll();
-        Category category=categories.stream().
-                filter(n->n.getCategoryID()==(categoryId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource not found"));
+      Category category = categoryRepository.findById(categoryId).
+              orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource not found"));
+//        Category category=categories.stream().
+//                filter(n->n.getCategoryID()==(categoryId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource not found"));
 //        if(category==null){
 //            return "Category not found";
 //        }
