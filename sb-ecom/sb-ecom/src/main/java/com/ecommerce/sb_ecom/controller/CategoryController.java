@@ -10,8 +10,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Instead of always writing /api in the endpoint you can minimize it by using Request Mapping annotation at class level
 @RestController
+@RequestMapping("/api")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -20,19 +21,22 @@ public class CategoryController {
 //        this.categoryService = categoryService;
 //    }
 
-    @GetMapping("api/public/categories")
+    //@GetMapping("api/public/categories")
+    @RequestMapping(value="public/categories",method=RequestMethod.GET)
     public ResponseEntity<List<Category>> getAllCategories(){
         List<Category> categories = categoryService.getAlLCategories();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    @PostMapping("api/public/categories")
+    //@PostMapping("api/public/categories")
+    @RequestMapping(value="public/categories",method=RequestMethod.POST)
     public ResponseEntity<String> createCategory(@RequestBody Category category){
         categoryService.createCategory(category);
         return new ResponseEntity<String>("Category successfully added.",HttpStatus.CREATED);
     }
 
-    @DeleteMapping("api/public/categories/{categoryId}")
+    //@DeleteMapping("api/public/categories/{categoryId}")
+    @RequestMapping(value="public/categories/{categoryId}",method=RequestMethod.DELETE)
     public ResponseEntity<String> deleteCategory(@PathVariable long categoryId){
         try {
             String status=categoryService.deleteCategory(categoryId);
@@ -44,7 +48,9 @@ public class CategoryController {
 
     }
 
-    @PutMapping("api/public/categories/{categoryId}")
+    //@PutMapping("api/public/categories/{categoryId}")
+    @RequestMapping(value="public/categories/{categoryId}",method=RequestMethod.PUT)
+
     public ResponseEntity<String> updateCategory(@PathVariable long categoryId, @RequestBody Category category){
         try {
             Category savedCategory=categoryService.updateCategory(category,categoryId);
